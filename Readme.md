@@ -1,6 +1,6 @@
-### Behave тестирование с помощью RestAssured проекта shop_kotlin
+### Behave тестирование с помощью RestAssured проекта vacancy_backend
 
-Тестируемый проект [https://github.com/cherepakhin/shop_kotlin](https://github.com/cherepakhin/shop_kotlin)
+Тестируемый проект [https://github.com/cherepakhin/vacancy_backend](https://github.com/cherepakhin/vacancy_backend)
 
 Для проведения тестов использован RestAssured<br/>
  [https://github.com/rest-assured/rest-assured](https://github.com/rest-assured/rest-assured/wiki/GettingStarted).
@@ -9,17 +9,17 @@
 
 Скрипты выполнять из папки проекта с тестами Rest Assured. 
 Перед запуском тестов нужно запустить сам проект:
-[https://github.com/cherepakhin/shop_kotlin](https://github.com/cherepakhin/shop_kotlin)
+[https://github.com/cherepakhin/vacancy_backend](https://github.com/cherepakhin/vacancy_backend)
 
 ### Env переменные
 
-Константы (адрес сервиса, REST пути и т.п.) заданы в [src/test/kotlin/ru/perm/v/shop_kotlin/restassured/CONST.kt](https://github.com/cherepakhin/shop_kotlin_reastassured_test/blob/dev/src/test/kotlin/ru/perm/v/shop_kotlin/restassured/CONSTS.kt):
+Константы (адрес сервиса, REST пути и т.п.) заданы в [src/test/kotlin/ru/perm/v/vacancy_backend/restassured/CONST.kt](https://github.com/cherepakhin/vacancy_backend_reastassured_test/blob/dev/src/test/kotlin/ru/perm/v/vacancy_backend/restassured/CONSTS.kt):
 
 ````kotlin
 class CONSTS {
  companion object {
   val SHOP_KOTLIN_IP = System.getenv("SHOP_KOTLIN_IP") ?: "127.0.0.1:8980"
-  val HOST = "http://"+SHOP_KOTLIN_IP +"/shop_kotlin/api"
+  val HOST = "http://"+SHOP_KOTLIN_IP +"/vacancy_backend/api"
   val ECHO_PATH = HOST + "/echo/"
   val GROUP_PATH = HOST + "/group_product/"
   val PRODUCT_PATH = HOST + "/product/"
@@ -38,13 +38,13 @@ $ echo $VACANCY_KOTLIN_IP
 ### Проведение теста
 
 ```shell
-shop_kotlin-restassured-test$ mvn clean test
+vacancy_backend-restassured-test$ mvn clean test
 ```
 
 Просмотр отчета в браузере:
 
 ```shell
-shop_kotlin_restassured_test$ ./allure serve target/surefire-reports/
+vacancy_backend_restassured_test$ ./allure serve target/surefire-reports/
 ```
 
 ### Результаты behave тестирования
@@ -94,9 +94,9 @@ https://allure-framework.github.io/allure-demo/5/#suites/a2891ce60e520f56ae25e6c
 ~/prog/java/allure-examples/allure-junit5
 
 ````shell
-shop_kotlin-restassured-test$ cd ~/<catalog project>
-shop_kotlin-restassured-test$ mvn clean test
-shop_kotlin-restassured-test$ allure serve allure-results/
+vacancy_backend-restassured-test$ cd ~/<catalog project>
+vacancy_backend-restassured-test$ mvn clean test
+vacancy_backend-restassured-test$ allure serve allure-results/
 ````
 
 ### Grafana
