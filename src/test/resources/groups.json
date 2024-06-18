@@ -1,0 +1,14 @@
+[
+  {
+    "n": 1,
+    "haveChilds": false,
+    "name": "IT products",
+    "parentN": -1
+  },
+  {
+    "n": 2,
+    "haveChilds": false,
+    "name": "Computers",
+    "parentN": 1
+  }
+]

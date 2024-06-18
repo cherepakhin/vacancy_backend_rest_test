@@ -1,0 +1,4 @@
+#
+#Fri Feb 09 16:03:40 YEKT 2024
+CPU=Intel i3
+RAM=16GB
