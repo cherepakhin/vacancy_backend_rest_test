@@ -18,8 +18,8 @@
 ````kotlin
 class CONSTS {
  companion object {
-  val SHOP_KOTLIN_IP = System.getenv("SHOP_KOTLIN_IP") ?: "127.0.0.1:8980"
-  val HOST = "http://"+SHOP_KOTLIN_IP +"/vacancy_backend/api"
+  val VACANCY_KOTLIN_IP = System.getenv("VACANCY_KOTLIN_IP") ?: "127.0.0.1:8980"
+  val HOST = "http://"+VACANCY_KOTLIN_IP +"/vacancy_backend/api"
   val ECHO_PATH = HOST + "/echo/"
   val GROUP_PATH = HOST + "/group_product/"
   val PRODUCT_PATH = HOST + "/product/"
@@ -27,7 +27,7 @@ class CONSTS {
 }
 ````
 
-SHOP_KOTLIN_IP - адрес и порт сервиса. По умолчанию: __127.0.0.1:8980__. Установка переменных:
+VACANCY_KOTLIN_IP - адрес и порт сервиса. По умолчанию: __127.0.0.1:8980__. Установка переменных:
 
 ````shell
 $ export VACANCY_KOTLIN_IP=127.0.0.1:8980
