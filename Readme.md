@@ -77,11 +77,11 @@ public class RestTest {
 Тесты на **НЕ ЗАПУЩЕННОМ** сервисе:
 ![Тесты на незапущенном сервисе](doc/allure_for_not_running_service.png)
 
-Подробнее можно посмотреть в проекте (https://github.com/cherepakhin/shop_kotlin)[https://github.com/cherepakhin/shop_kotlin]
-
 ### Шпаргалка по вложенности
 
 ![Epic-Feature-Story](doc/hierarchy.png)
+
+Подробнее можно посмотреть в проекте (https://github.com/cherepakhin/shop_kotlin)[https://github.com/cherepakhin/shop_kotlin]
 
 ### Закладки
 
