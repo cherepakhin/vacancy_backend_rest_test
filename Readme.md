@@ -74,11 +74,6 @@ public class RestTest {
 По цели (@Epic("REST API Echo")):
 ![По цели](doc/allure_by_epic.png)
 
-
-Отчет с ошибками:
-
-![Отчет с ошибками](doc/result_test_error.png)
-
 Тесты на **НЕ ЗАПУЩЕННОМ** сервисе:
 ![Тесты на незапущенном сервисе](doc/allure_for_not_running_service.png)
 
