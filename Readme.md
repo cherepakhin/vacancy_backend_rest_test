@@ -49,7 +49,7 @@ vacancy_backend_restassured_test$ ./allure serve target/surefire-reports/
 
 ### Результаты behave тестирования
 
-![Результаты behave тестирования](doc/error_test_for_not_runned_service.png)
+![Результаты behave тестирования](doc/allure_ok.png)
 
 ### Памятка по группировке тестов allure
 
@@ -80,7 +80,7 @@ public class RestTest {
 ![Отчет с ошибками](doc/result_test_error.png)
 
 Тесты на **НЕ ЗАПУЩЕННОМ** сервисе:
-![Тесты на незапущенном сервисе](doc/error_test_for_not_runned_service.png)
+![Тесты на незапущенном сервисе](doc/allure_for_not_running_service.png)
 
 ### Шпаргалка по вложенности
 
