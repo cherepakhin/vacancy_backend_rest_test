@@ -121,7 +121,7 @@ Error: Could not find or load main class org.gradle.wrapper.GradleWrapperMain Ca
 gradle wrapper
 ````
 
-Для исправления warning: _java.lang.NoSuchMethodError: 'org.junit.platform.engine.UniqueId org.junit.platform.launcher.TestIdentifier.getUniqueIdObject()'_ нужно указать правилные версии тестовых библиотек junit, jupiter: 
+Для исправления **warning**: _java.lang.NoSuchMethodError: 'org.junit.platform.engine.UniqueId org.junit.platform.launcher.TestIdentifier.getUniqueIdObject()'_ нужно указать правилные версии тестовых библиотек junit, jupiter: 
 
 ````shell
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.0-M1")
