@@ -49,7 +49,7 @@ vacancy_backend_restassured_test$ ./allure serve target/surefire-reports/
 
 ### Результаты behave тестирования
 
-![Результаты behave тестирования](doc/allure_report.png)
+![Результаты behave тестирования](doc/error_test_for_not_runned_service.png)
 
 ### Памятка по группировке тестов allure
 
