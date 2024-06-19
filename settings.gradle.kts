@@ -1,4 +1,4 @@
-rootProject.name = "vacancy_backend"
+rootProject.name = "vacancy_backend_rest_test"
 
 pluginManagement {
     repositories {

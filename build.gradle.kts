@@ -93,7 +93,13 @@ dependencies {
         exclude("org.mockito", "mockito-core")
     }
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.0-M1")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.0-M1")
+    testImplementation("org.junit.platform:junit-platform-launcher:1.8.0-M1")
+    testImplementation("org.junit.platform:junit-platform-runner:1.8.0-M1")
+
 // https://mvnrepository.com/artifact/io.qameta.allure/allure-junit5
     testImplementation("io.qameta.allure:allure-junit5:2.27.0")
     testImplementation("io.rest-assured:kotlin-extensions:5.4.0")
