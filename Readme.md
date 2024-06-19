@@ -69,11 +69,11 @@ public class RestTest {
 
 По пакетам:
 
-![По пакетам](doc/group_by_package.png)
+![По пакетам](doc/allure_by_package.png)
 
-По строгости (критичности) - аннотация @Severity(SeverityLevel.NORMAL). Работа аннотаций @Epic, @Suite:
+По цели (@Epic("REST API Echo")):
+![По цели](doc/allure_by_epic.png)
 
-![@DisplayName или Suites](doc/group_by_suites.png)
 
 Отчет с ошибками:
 
@@ -81,6 +81,8 @@ public class RestTest {
 
 Тесты на **НЕ ЗАПУЩЕННОМ** сервисе:
 ![Тесты на незапущенном сервисе](doc/allure_for_not_running_service.png)
+
+Подробнее можно посмотреть в проекте (https://github.com/cherepakhin/shop_kotlin)[https://github.com/cherepakhin/shop_kotlin]
 
 ### Шпаргалка по вложенности
 
