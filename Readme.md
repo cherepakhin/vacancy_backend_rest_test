@@ -38,7 +38,7 @@ $ echo $VACANCY_KOTLIN_IP
 ### Проведение теста
 
 ```shell
-vacancy_backend-restassured-test$ mvn clean test
+vacancy_backend-restassured-test$ ./gradlew test
 ```
 
 Просмотр отчета в браузере:
@@ -49,7 +49,7 @@ vacancy_backend_restassured_test$ ./allure serve target/surefire-reports/
 
 ### Результаты behave тестирования
 
-![Результаты behave тестирования](doc/result_test.png)
+![Результаты behave тестирования](doc/allure_report.png)
 
 ### Памятка по группировке тестов allure
 
@@ -124,8 +124,10 @@ gradle wrapper
 Для исправления **warning**: _java.lang.NoSuchMethodError: 'org.junit.platform.engine.UniqueId org.junit.platform.launcher.TestIdentifier.getUniqueIdObject()'_ нужно указать правилные версии тестовых библиотек junit, jupiter: 
 
 ````shell
+...
 testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.0-M1")
 testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.0-M1")
 testImplementation("org.junit.platform:junit-platform-launcher:1.8.0-M1")
 testImplementation("org.junit.platform:junit-platform-runner:1.8.0-M1")
+...
 ````
