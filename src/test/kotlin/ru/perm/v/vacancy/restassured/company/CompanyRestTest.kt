@@ -49,7 +49,7 @@ class CompanyRestTest {
 
     @Test
     @Epic("Company REST API Get Company 1")
-    @DisplayName("GET Company N=1. Check JSON.")
+    @DisplayName("GET Company N=1. Check HttpStatus.SC_OK.")
     fun getCompanyByN_HttpStatusIsOK() {
         val N = 1
         RestAssured.given().`when`().get("/" + N).then()
