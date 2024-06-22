@@ -4,6 +4,7 @@ import io.qameta.allure.Epic
 import io.restassured.RestAssured
 import io.restassured.RestAssured.get
 import io.restassured.RestAssured.given
+import io.restassured.parsing.Parser
 import org.apache.http.HttpStatus
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
@@ -18,6 +19,7 @@ class EchoRestTest {
         @BeforeAll
         @JvmStatic
         fun setupAll(): Unit {
+            RestAssured.registerParser("text/plain", Parser.HTML);
             RestAssured.baseURI = CONSTS.ECHO_PATH
         }
     }
@@ -26,7 +28,7 @@ class EchoRestTest {
     @Epic("REST API Echo")
     @DisplayName("GET Request with message is status=200")
     fun getMessage_HttpStatusIsOK() {
-        given().`when`().get(CONSTS.ECHO_PATH + MESSAGE).then()
+        given().`when`().get(MESSAGE).then()
             .statusCode(HttpStatus.SC_OK)
     }
 
