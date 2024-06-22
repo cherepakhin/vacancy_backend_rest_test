@@ -78,7 +78,7 @@ vacancy_backend-restassured-test$ ./gradlew test
 Просмотр отчета в браузере:
 
 ```shell
-vacancy_backend_restassured_test$ ./allure serve target/surefire-reports/
+vacancy_backend_restassured_test$ allure serve build/allure-results/
 ```
 
 ### Результаты behave тестирования

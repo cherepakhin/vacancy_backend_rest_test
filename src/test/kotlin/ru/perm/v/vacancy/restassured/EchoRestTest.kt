@@ -1,4 +1,4 @@
-package ru.perm.v.shop_kotlin.restassured
+package ru.perm.v.vacancy.restassured
 
 import io.qameta.allure.Epic
 import io.restassured.RestAssured

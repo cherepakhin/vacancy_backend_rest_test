@@ -1,4 +1,4 @@
-package ru.perm.v.shop_kotlin.restassured.dto
+package ru.perm.v.vacancy.restassured.dto
 
 class CompanyDTO {
 }

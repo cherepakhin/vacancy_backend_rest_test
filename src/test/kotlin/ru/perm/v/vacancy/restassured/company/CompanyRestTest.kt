@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
-import ru.perm.v.shop_kotlin.restassured.CONSTS
+import ru.perm.v.vacancy.restassured.CONSTS
 
 
 @DisplayName("Company tests")
