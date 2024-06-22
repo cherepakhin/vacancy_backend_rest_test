@@ -157,7 +157,7 @@ Timeout(10s)
 
 ### Примечания.
 
-При возникновении ошибки:
+#### При возникновении ошибки:
 
 ````shell
 Error: Could not find or load main class org.gradle.wrapper.GradleWrapperMain Caused by: java.lang.ClassNotFoundException: org.gradle.wrapper.GradleWrapperMain
@@ -179,3 +179,7 @@ testImplementation("org.junit.platform:junit-platform-launcher:1.8.0-M1")
 testImplementation("org.junit.platform:junit-platform-runner:1.8.0-M1")
 ...
 ````
+
+#### Просмотр commits в github
+
+[https://github.com/cherepakhin/vacancy_backend_rest_test/commits](https://github.com/cherepakhin/vacancy_backend_rest_test/commits)
