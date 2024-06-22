@@ -35,6 +35,40 @@ $ echo $VACANCY_KOTLIN_IP
 127.0.0.1:8980
 ````
 
+Для указания RestAssured в тестах необходимо настроить __RestAssured.baseURI__:
+
+````kotlin
+@DisplayName("Echo tests")
+class EchoRestTest {
+    val MESSAGE = "MESSAGE"
+
+    companion object {
+        @BeforeAll
+        @JvmStatic
+        fun setupAll(): Unit {
+// Для справки:
+//     class CONSTS {
+//      companion object {
+//       val IP = System.getenv("VACANCY_KOTLIN_IP") ?: "127.0.0.1:8980"
+//       val HOST = "http://"+IP +"/vacancy/api"
+//       val ECHO_PATH = HOST + "/echo/"
+//       val COMPANY_PATH = HOST + "/company/"
+//      }
+//     }
+            RestAssured.baseURI = CONSTS.ECHO_PATH
+        }
+    }
+
+    @Test
+    @Epic("REST API Echo")
+    @DisplayName("GET Request with message is status=200")
+    fun getMessage_HttpStatusIsOK() {
+        given().`when`().get(CONSTS.ECHO_PATH + MESSAGE).then()
+            .statusCode(HttpStatus.SC_OK)
+    }
+}
+````
+
 ### Проведение теста
 
 ```shell
@@ -98,7 +132,10 @@ vacancy_backend-restassured-test$ allure serve allure-results/
 
 ### Grafana
 
-Вообще, Grafana используется для мониторинга работающего приложения, здесь только для интереса. Какие-то общие сведения можно увидеть на тестах. 
+Вообще, Grafana используется для мониторинга работающего приложения, здесь только для интереса. Какие-то общие сведения можно увидеть на тестах. В конфигурацию Prometheus добавить задание:
+
+
+
 
 Timeout(10s)
 
