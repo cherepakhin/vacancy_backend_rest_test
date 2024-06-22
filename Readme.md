@@ -83,7 +83,7 @@ vacancy_backend_restassured_test$ allure serve build/allure-results/
 
 ### Результаты behave тестирования
 
-![Результаты behave тестирования](doc/allure_ok.png)
+![Результаты behave тестирования](doc/allure_ok1.png)
 
 В Idea названия тестов будут названы из аннотации  @DisplayName. Пример:
 
