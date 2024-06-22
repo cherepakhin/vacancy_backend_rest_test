@@ -29,11 +29,22 @@ class CompanyRestTest {
 
     @Test
     @Epic("Company REST API Echo")
-    @DisplayName("GET Company REST Request with message is status=200")
-    fun getMessage_HttpStatusIsOK() {
+    @DisplayName("GET Company REST Request is status=200")
+    fun getEchoHttpStatusIsOK() {
         val MESSAGE = "message"
         RestAssured.given().`when`().get("/echo/" + MESSAGE).then()
             .statusCode(HttpStatus.SC_OK)
+    }
+
+    @Test
+    @Epic("Company REST API Echo")
+    @DisplayName("GET Company REST Request check message")
+    fun getEchoCheckMessage() {
+        val MESSAGE = "message"
+        RestAssured.given().`when`().get("/echo/" + MESSAGE).then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType("text/plain")
+            .body(equalTo(MESSAGE))
     }
 
     @Test
