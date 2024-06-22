@@ -85,6 +85,21 @@ vacancy_backend_restassured_test$ allure serve build/allure-results/
 
 ![Результаты behave тестирования](doc/allure_ok.png)
 
+В Idea названия тестов будут названы из аннотации  @DisplayName. Пример:
+
+```java
+    @Test
+    @Epic("REST API Echo")
+    @DisplayName("GET Request with message is status=200")
+    fun getMessage_HttpStatusIsOK() {
+        given().`when`().get(MESSAGE).then()
+            .statusCode(HttpStatus.SC_OK)
+    }
+
+```
+
+![Idea DisplayName](doc/idea_result.png)
+
 ### Памятка по группировке тестов allure
 
 Пример:
