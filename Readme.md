@@ -75,6 +75,8 @@ class EchoRestTest {
 vacancy_backend-restassured-test$ ./gradlew test
 ```
 
+![Idea DisplayName](doc/idea_result.png)
+
 Просмотр отчета в браузере:
 
 ```shell
@@ -97,8 +99,6 @@ vacancy_backend_restassured_test$ allure serve build/allure-results/
     }
 
 ```
-
-![Idea DisplayName](doc/idea_result.png)
 
 ### Памятка по группировке тестов allure
 
