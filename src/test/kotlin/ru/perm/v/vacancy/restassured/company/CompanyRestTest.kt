@@ -3,6 +3,7 @@ package ru.perm.v.vacancy.restassured.company
 import io.qameta.allure.Epic
 import io.restassured.RestAssured
 import org.apache.http.HttpStatus
+import org.hamcrest.core.IsEqual.equalTo
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -29,5 +30,18 @@ class CompanyRestTest {
         val MESSAGE = "message"
         RestAssured.given().`when`().get("/echo/" + MESSAGE).then()
             .statusCode(HttpStatus.SC_OK)
+    }
+
+    @Test
+    @Epic("Company REST API Get Company 1")
+    @DisplayName("GET Company N=1. Check JSON.")
+    fun getCompanyByN() {
+        val N = 1
+        RestAssured.given().`when`().get("/" + N).then()
+            .statusCode(HttpStatus.SC_OK)
+            .contentType("application/json")
+            .body("n", equalTo(N))
+            .and()
+            .body("name", equalTo("COMPANY_1"))
     }
 }
