@@ -26,7 +26,7 @@ class EchoRestTest {
 
     @Test
     @Epic("REST API Echo")
-    @DisplayName("GET Request with message is status=200")
+    @DisplayName("GET Echo Request with message is status=200")
     fun getMessage_HttpStatusIsOK() {
         given().`when`().get(MESSAGE).then()
             .statusCode(HttpStatus.SC_OK)
@@ -34,7 +34,7 @@ class EchoRestTest {
 
     @Test
     @Epic("REST API Echo")
-    @DisplayName("GET Request with message is status=200")
+    @DisplayName("GET Echo Request check message")
     fun getMessage_CheckMessage() {
         val response = get(CONSTS.ECHO_PATH + MESSAGE)
         val responseBody = response.asString()
