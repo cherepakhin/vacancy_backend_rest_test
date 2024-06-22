@@ -50,10 +50,18 @@ class CompanyRestTest {
     @Test
     @Epic("Company REST API Get Company 1")
     @DisplayName("GET Company N=1. Check JSON.")
-    fun getCompanyByN() {
+    fun getCompanyByN_HttpStatusIsOK() {
         val N = 1
         RestAssured.given().`when`().get("/" + N).then()
             .statusCode(HttpStatus.SC_OK)
+    }
+
+    @Test
+    @Epic("Company REST API Get Company 1")
+    @DisplayName("GET Company N=1. Check JSON.")
+    fun getCompanyByN() {
+        val N = 1
+        RestAssured.given().`when`().get("/" + N).then()
             .contentType("application/json")
             .body("n", equalTo(N))
             .and()
