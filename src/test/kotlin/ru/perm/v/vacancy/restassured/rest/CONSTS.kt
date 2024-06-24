@@ -1,4 +1,4 @@
-package ru.perm.v.vacancy.restassured
+package ru.perm.v.vacancy.restassured.rest
 
 class CONSTS {
     companion object {
@@ -6,5 +6,6 @@ class CONSTS {
         val HOST = "http://"+ IP +"/vacancy/api"
         val ECHO_PATH = HOST + "/echo/"
         val COMPANY_PATH = HOST + "/company/"
+        val VACANCY_PATH = HOST + "/vacancy/"
     }
 }

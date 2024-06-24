@@ -1,4 +1,4 @@
-package ru.perm.v.vacancy.restassured.company
+package ru.perm.v.vacancy.restassured.rest
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
@@ -11,8 +11,6 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
-import ru.perm.v.vacancy.restassured.CONSTS
-import ru.perm.v.vacancy.restassured.dto.CompanyDTO
 
 
 @DisplayName("Company tests")

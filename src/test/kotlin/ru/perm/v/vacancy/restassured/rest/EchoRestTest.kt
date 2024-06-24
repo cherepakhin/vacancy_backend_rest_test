@@ -1,4 +1,4 @@
-package ru.perm.v.vacancy.restassured
+package ru.perm.v.vacancy.restassured.rest
 
 import io.qameta.allure.Epic
 import io.restassured.RestAssured

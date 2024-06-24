@@ -1,4 +1,4 @@
-package ru.perm.v.vacancy.restassured.dto
+package ru.perm.v.vacancy.restassured.rest
 
 class CompanyDTO {
     var n: Long = -1L
