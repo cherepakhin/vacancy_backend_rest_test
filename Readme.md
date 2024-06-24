@@ -183,3 +183,10 @@ testImplementation("org.junit.platform:junit-platform-runner:1.8.0-M1")
 #### Просмотр commits в github
 
 [https://github.com/cherepakhin/vacancy_backend_rest_test/commits](https://github.com/cherepakhin/vacancy_backend_rest_test/commits)
+
+#### Просмотр urls git
+
+````shell
+$ git config --get remote.origin.url
+https://github.com/cherepakhin/vacancy_backend_rest_test.git
+````
