@@ -10,17 +10,24 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.slf4j.LoggerFactory
+import java.lang.String.format
 
 @DisplayName("Echo tests")
 class EchoRestTest {
+    val logger = LoggerFactory.getLogger(this.javaClass.name)
+
     val MESSAGE = "MESSAGE"
 
     companion object {
+        val logger = LoggerFactory.getLogger(this.javaClass.name)
+
         @BeforeAll
         @JvmStatic
         fun setupAll(): Unit {
             RestAssured.registerParser("text/plain", Parser.HTML);
             RestAssured.baseURI = CONSTS.ECHO_PATH
+            logger.info(format("RestAssured.baseURI = ", RestAssured.baseURI))
         }
     }
 
@@ -37,6 +44,7 @@ class EchoRestTest {
     @DisplayName("GET Echo Request check message")
     fun getMessage_CheckMessage() {
         val response = get(CONSTS.ECHO_PATH + MESSAGE)
+        logger.info(response.asString())
         val responseBody = response.asString()
         assertEquals(MESSAGE, responseBody)
         val v = VacancyDTO()

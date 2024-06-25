@@ -190,3 +190,7 @@ testImplementation("org.junit.platform:junit-platform-runner:1.8.0-M1")
 $ git config --get remote.origin.url
 https://github.com/cherepakhin/vacancy_backend_rest_test.git
 ````
+
+#### Настройка env переменных в Idea
+
+![Настройка env переменных в Idea](doc/idea_env.png)
