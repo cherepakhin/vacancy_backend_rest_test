@@ -39,5 +39,6 @@ class EchoRestTest {
         val response = get(CONSTS.ECHO_PATH + MESSAGE)
         val responseBody = response.asString()
         assertEquals(MESSAGE, responseBody)
+        val v = VacancyDTO()
     }
 }

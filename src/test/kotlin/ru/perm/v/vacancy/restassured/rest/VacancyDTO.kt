@@ -1,6 +1,6 @@
 package ru.perm.v.vacancy.restassured.rest
 
-class VacancyDto {
+class VacancyDTO {
     var n: Long = -1L
     var name: String = "-"
     var comment: String = "-"
@@ -17,7 +17,7 @@ class VacancyDto {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is VacancyDto) return false
+        if (other !is VacancyDTO) return false
 
         if (n != other.n) return false
         if (name != other.name) return false

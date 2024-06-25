@@ -1,9 +1,12 @@
 package ru.perm.v.vacancy.restassured.rest
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import io.qameta.allure.Epic
 import io.restassured.RestAssured
 import org.apache.http.HttpStatus
 import org.hamcrest.core.IsEqual.equalTo
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -71,17 +74,20 @@ class VacancyRestTest {
             .contentType("application/json")
     }
 
-//TODO: uncomment
-//    @Test
-//    @DisplayName("GET All Vacancy. Check body.")
-//    fun getAllVacancy_checkBody() {
-//        val json = RestAssured.get("/").body.asString()
-//        val companies: List<VacancyDTO>  = ObjectMapper().readValue(json)
-//
-//        assertEquals(4, companies.size)
-//        assertEquals(VacancyDTO(-1L,"-"), companies[0])
-//        assertEquals(VacancyDTO(1L,"COMPANY_1"), companies[1])
-//        assertEquals(VacancyDTO(2L,"COMPANY_2"), companies[2])
-//        assertEquals(VacancyDTO(3L,"3_COMPANY"), companies[3])
-//    }
+    @Test
+    @DisplayName("GET All Vacancy. Check body.")
+    fun getAllVacancy_checkBody() {
+        val json = RestAssured.get("/").body.asString()
+        val vacancies: List<VacancyDTO>  = ObjectMapper().readValue(json)
+
+        val companyDTO1 = CompanyDTO(1L,"COMPANY_1")
+        val companyDTO2 = CompanyDTO(2L,"COMPANY_2")
+        val companyDTO3 = CompanyDTO(3L,"3_COMPANY")
+
+        assertEquals(4, vacancies.size)
+        assertEquals(VacancyDTO(1L,"NAME_VACANCY_1_COMPANY_1","COMMENT_VACANCY_1_COMPANY_1", companyDTO1), vacancies[0])
+        assertEquals(VacancyDTO(2L,"NAME_VACANCY_2_COMPANY_1","COMMENT_VACANCY_2_COMPANY_1", companyDTO1), vacancies[1])
+        assertEquals(VacancyDTO(3L,"NAME_VACANCY_1_COMPANY_2","COMMENT_VACANCY_1_COMPANY_2", companyDTO2), vacancies[2])
+        assertEquals(VacancyDTO(4L,"NAME_VACANCY_1_COMPANY_3","COMMENT_VACANCY_1_COMPANY_3", companyDTO3), vacancies[3])
+    }
 }
