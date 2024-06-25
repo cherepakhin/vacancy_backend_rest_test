@@ -11,6 +11,18 @@
 Перед запуском тестов нужно запустить сам проект:
 [https://github.com/cherepakhin/vacancy_backend](https://github.com/cherepakhin/vacancy_backend)
 
+### Проведение теста
+
+```shell
+vacancy_backend-restassured-test$ ./gradlew test
+```
+
+Просмотр отчета в браузере:
+
+```shell
+vacancy_backend_restassured_test$ allure serve build/allure-results/
+```
+
 ### Env переменные
 
 Константы (адрес сервиса, REST пути и т.п.) заданы в [src/test/kotlin/ru/perm/v/vacancy_backend/restassured/CONST.kt](https://github.com/cherepakhin/vacancy_backend_reastassured_test/blob/dev/src/test/kotlin/ru/perm/v/vacancy_backend/restassured/CONSTS.kt):
@@ -68,18 +80,6 @@ class EchoRestTest {
     }
 }
 ````
-
-### Проведение теста
-
-```shell
-vacancy_backend-restassured-test$ ./gradlew test
-```
-
-Просмотр отчета в браузере:
-
-```shell
-vacancy_backend_restassured_test$ allure serve build/allure-results/
-```
 
 ### Результаты behave тестирования
 
