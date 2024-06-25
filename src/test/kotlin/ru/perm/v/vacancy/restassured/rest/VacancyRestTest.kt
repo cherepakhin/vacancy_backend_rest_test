@@ -85,9 +85,33 @@ class VacancyRestTest {
         val companyDTO3 = CompanyDTO(3L,"3_COMPANY")
 
         assertEquals(4, vacancies.size)
-        assertEquals(VacancyDTO(1L,"NAME_VACANCY_1_COMPANY_1","COMMENT_VACANCY_1_COMPANY_1", companyDTO1), vacancies[0])
-        assertEquals(VacancyDTO(2L,"NAME_VACANCY_2_COMPANY_1","COMMENT_VACANCY_2_COMPANY_1", companyDTO1), vacancies[1])
-        assertEquals(VacancyDTO(3L,"NAME_VACANCY_1_COMPANY_2","COMMENT_VACANCY_1_COMPANY_2", companyDTO2), vacancies[2])
-        assertEquals(VacancyDTO(4L,"NAME_VACANCY_1_COMPANY_3","COMMENT_VACANCY_1_COMPANY_3", companyDTO3), vacancies[3])
+        assertEquals(
+            VacancyDTO(
+                1L,
+                "NAME_VACANCY_1_COMPANY_1",
+                "COMMENT_VACANCY_1_COMPANY_1",
+                companyDTO1),
+            vacancies[0])
+        assertEquals(
+            VacancyDTO(
+                2L,
+                "NAME_VACANCY_2_COMPANY_1",
+                "COMMENT_VACANCY_2_COMPANY_1",
+                companyDTO1),
+            vacancies[1])
+        assertEquals(
+            VacancyDTO(
+                3L,
+                "NAME_VACANCY_1_COMPANY_2",
+                "COMMENT_VACANCY_1_COMPANY_2",
+                companyDTO2),
+            vacancies[2])
+        assertEquals(
+            VacancyDTO(
+                4L,
+                "NAME_VACANCY_1_COMPANY_3",
+                "COMMENT_VACANCY_1_COMPANY_3",
+                companyDTO3),
+            vacancies[3])
     }
 }
