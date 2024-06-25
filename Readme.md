@@ -193,4 +193,4 @@ https://github.com/cherepakhin/vacancy_backend_rest_test.git
 
 #### Настройка env переменных в Idea
 
-![Настройка env переменных в Idea](doc/idea_env.png)
+![Настройка env переменных в Idea](doc/idea_env_select.png)
