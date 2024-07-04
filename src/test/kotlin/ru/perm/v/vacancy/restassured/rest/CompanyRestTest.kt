@@ -3,7 +3,7 @@ package ru.perm.v.vacancy.restassured.rest
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.qameta.allure.Epic
-import io.restassured.RestAssured
+import io.restassured.RestAssured.*
 import org.apache.http.HttpStatus
 import org.hamcrest.core.IsEqual.equalTo
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -21,7 +21,7 @@ class CompanyRestTest {
         @BeforeAll
         @JvmStatic
         fun setupAll(): Unit {
-            RestAssured.baseURI = CONSTS.COMPANY_PATH
+            baseURI = CONSTS.COMPANY_PATH
         }
     }
 
@@ -30,7 +30,7 @@ class CompanyRestTest {
     @DisplayName("GET Company REST Request is status=200")
     fun getEchoHttpStatusIsOK() {
         val MESSAGE = "message"
-        RestAssured.given().`when`().get("/echo/" + MESSAGE).then()
+        given().`when`().get("/echo/" + MESSAGE).then()
             .statusCode(HttpStatus.SC_OK)
     }
 
@@ -39,7 +39,7 @@ class CompanyRestTest {
     @DisplayName("GET Company REST Request check message")
     fun getEchoCheckMessage() {
         val MESSAGE = "message"
-        RestAssured.given().`when`().get("/echo/" + MESSAGE).then()
+        given().`when`().get("/echo/" + MESSAGE).then()
             .statusCode(HttpStatus.SC_OK)
             .contentType("text/plain")
             .body(equalTo(MESSAGE))
@@ -50,7 +50,7 @@ class CompanyRestTest {
     @DisplayName("GET Company N=1. Check HttpStatus.SC_OK.")
     fun getCompanyByN_HttpStatusIsOK() {
         val N = 1
-        RestAssured.given().`when`().get("/" + N).then()
+        given().`when`().get("/" + N).then()
             .statusCode(HttpStatus.SC_OK)
     }
 
@@ -59,23 +59,25 @@ class CompanyRestTest {
     @DisplayName("GET Company N=1. Check JSON.")
     fun getCompanyByN() {
         val N = 1
-        RestAssured.given().`when`().get("/" + N).then()
+        given().`when`().get("/" + N).then()
             .contentType("application/json")
             .body("n", equalTo(N))
             .and()
             .body("name", equalTo("COMPANY_1"))
     }
+
     @Test
     @DisplayName("GET All Company. Check OK.")
     fun getAllCompany_HttpStatusIsOK() {
-        RestAssured.given().`when`().get("/").then()
+        given().`when`().get("/").then()
             .statusCode(HttpStatus.SC_OK)
             .contentType("application/json")
     }
+
     @Test
     @DisplayName("GET All Company. Check body.")
     fun getAllCompany_checkBody() {
-        val json = RestAssured.get("/").body.asString()
+        val json = get("/").body.asString()
         val companies: List<CompanyDTO>  = ObjectMapper().readValue(json)
 
         assertEquals(4, companies.size)

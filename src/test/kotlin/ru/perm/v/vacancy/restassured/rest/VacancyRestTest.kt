@@ -3,7 +3,7 @@ package ru.perm.v.vacancy.restassured.rest
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.qameta.allure.Epic
-import io.restassured.RestAssured
+import io.restassured.RestAssured.*
 import org.apache.http.HttpStatus
 import org.hamcrest.core.IsEqual.equalTo
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -21,7 +21,7 @@ class VacancyRestTest {
         @BeforeAll
         @JvmStatic
         fun setupAll(): Unit {
-            RestAssured.baseURI = CONSTS.VACANCY_PATH
+            baseURI = CONSTS.VACANCY_PATH
         }
     }
 
@@ -30,7 +30,7 @@ class VacancyRestTest {
     @DisplayName("GET Vacancy REST Request is status=200")
     fun getEchoHttpStatusIsOK() {
         val MESSAGE = "message"
-        RestAssured.given().`when`().get("/echo/" + MESSAGE).then()
+        given().`when`().get("/echo/" + MESSAGE).then()
             .statusCode(HttpStatus.SC_OK)
     }
 
@@ -39,7 +39,7 @@ class VacancyRestTest {
     @DisplayName("GET Vacancy REST Request check message")
     fun getEchoCheckMessage() {
         val MESSAGE = "message"
-        RestAssured.given().`when`().get("/echo/" + MESSAGE).then()
+        given().`when`().get("/echo/" + MESSAGE).then()
             .statusCode(HttpStatus.SC_OK)
             .contentType("text/plain")
             .body(equalTo(MESSAGE))
@@ -50,7 +50,7 @@ class VacancyRestTest {
     @DisplayName("GET Vacancy N=1. Check HttpStatus.SC_OK.")
     fun getVacancyByN_HttpStatusIsOK() {
         val N = 1
-        RestAssured.given().`when`().get("/" + N).then()
+        given().`when`().get("/" + N).then()
             .statusCode(HttpStatus.SC_OK)
     }
 
@@ -59,7 +59,7 @@ class VacancyRestTest {
     @DisplayName("GET Vacancy N=1. Check JSON.")
     fun getVacancyByN() {
         val N = 1
-        RestAssured.given().`when`().get("/" + N).then()
+        given().`when`().get("/" + N).then()
             .contentType("application/json")
             .body("n", equalTo(N))
             .and()
@@ -69,7 +69,7 @@ class VacancyRestTest {
     @Test
     @DisplayName("GET All Vacancy. Check OK.")
     fun getAllVacancy_HttpStatusIsOK() {
-        RestAssured.given().`when`().get("/").then()
+        given().`when`().get("/").then()
             .statusCode(HttpStatus.SC_OK)
             .contentType("application/json")
     }
@@ -77,7 +77,7 @@ class VacancyRestTest {
     @Test
     @DisplayName("GET All Vacancy. Check body.")
     fun getAllVacancy_checkBody() {
-        val json = RestAssured.get("/").body.asString()
+        val json = get("/").body.asString()
         val vacancies: List<VacancyDTO>  = ObjectMapper().readValue(json)
 
         val companyDTO1 = CompanyDTO(1L,"COMPANY_1")
