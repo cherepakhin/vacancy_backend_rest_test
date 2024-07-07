@@ -15,12 +15,12 @@ import java.lang.String.format
 
 @DisplayName("Echo tests")
 class EchoRestTest {
-    val logger = LoggerFactory.getLogger(this.javaClass.name)
+    val logger = LoggerFactory.getLogger(this::class.java)
 
     val MESSAGE = "MESSAGE"
 
     companion object {
-        val logger = LoggerFactory.getLogger(this.javaClass.name)
+        val logger = LoggerFactory.getLogger(this::class.java)
 
         @BeforeAll
         @JvmStatic
@@ -44,9 +44,9 @@ class EchoRestTest {
     @DisplayName("GET Echo Request check message")
     fun getMessage_CheckMessage() {
         val response = get(CONSTS.ECHO_PATH + MESSAGE)
-        logger.info(response.asString())
         val responseBody = response.asString()
+        logger.info(responseBody)
         assertEquals(MESSAGE, responseBody)
-        val v = VacancyDTO()
     }
 }
+
