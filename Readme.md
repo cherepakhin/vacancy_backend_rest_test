@@ -14,7 +14,7 @@
 ### Проведение теста
 
 ```shell
-vacancy_backend-restassured-test$ ./gradlew test
+vacancy_backend-restassured-test$ ./gradlew clean test
 ```
 
 Просмотр отчета в браузере:
