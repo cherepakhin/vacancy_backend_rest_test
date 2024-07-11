@@ -115,8 +115,12 @@ class VacancyRestTest {
             vacancies[3])
     }
 
-    //TODO: test create
+    //TODO: test get NOT EXIST vacancy
+    //TODO: test create with valid DTO
+    //TODO: test create with NOT valid DTO
     //TODO: test update
-    //TODO: test delete
-
+    //TODO: test delete exist
+    //TODO: test delete NOT exist
+    //TODO: test delete with check cache
+    //TODO: test validate message on create
 }
