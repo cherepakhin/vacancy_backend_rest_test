@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.qameta.allure.Epic
 import io.restassured.RestAssured.*
+import io.restassured.module.kotlin.extensions.Extract
 import org.apache.http.HttpStatus
 import org.hamcrest.core.IsEqual.equalTo
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -78,11 +79,11 @@ class VacancyRestTest {
     @DisplayName("GET All Vacancy. Check body.")
     fun getAllVacancy_checkBody() {
         val json = get("/").body.asString()
-        val vacancies: List<VacancyDTO>  = ObjectMapper().readValue(json)
+        val vacancies: List<VacancyDTO> = ObjectMapper().readValue(json)
 
-        val companyDTO1 = CompanyDTO(1L,"COMPANY_1")
-        val companyDTO2 = CompanyDTO(2L,"COMPANY_2")
-        val companyDTO3 = CompanyDTO(3L,"3_COMPANY")
+        val companyDTO1 = CompanyDTO(1L, "COMPANY_1")
+        val companyDTO2 = CompanyDTO(2L, "COMPANY_2")
+        val companyDTO3 = CompanyDTO(3L, "3_COMPANY")
 
         assertEquals(4, vacancies.size)
         assertEquals(
@@ -90,44 +91,68 @@ class VacancyRestTest {
                 1L,
                 "NAME_VACANCY_1_COMPANY_1",
                 "COMMENT_VACANCY_1_COMPANY_1",
-                companyDTO1),
-            vacancies[0])
+                companyDTO1
+            ),
+            vacancies[0]
+        )
         assertEquals(
             VacancyDTO(
                 2L,
                 "NAME_VACANCY_2_COMPANY_1",
                 "COMMENT_VACANCY_2_COMPANY_1",
-                companyDTO1),
-            vacancies[1])
+                companyDTO1
+            ),
+            vacancies[1]
+        )
         assertEquals(
             VacancyDTO(
                 3L,
                 "NAME_VACANCY_1_COMPANY_2",
                 "COMMENT_VACANCY_1_COMPANY_2",
-                companyDTO2),
-            vacancies[2])
+                companyDTO2
+            ),
+            vacancies[2]
+        )
         assertEquals(
             VacancyDTO(
                 4L,
                 "NAME_VACANCY_1_COMPANY_3",
                 "COMMENT_VACANCY_1_COMPANY_3",
-                companyDTO3),
-            vacancies[3])
+                companyDTO3
+            ),
+            vacancies[3]
+        )
     }
 
     @Test
     @DisplayName("GET NOT EXIST Vacancy.")
     fun getNotExistVacancy() {
-        given().`when`().get("/-100").then()
+        val answer = given().`when`().get("/-100").then()
             .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
-            .contentType("application/json" )
-
+            .contentType("application/json")
+        answer.Extract { this.statusCode() == 500 }
     }
+
     //TODO: test create with valid DTO
+    @Test
+    @DisplayName("Create Vacancy with VALID DTO.")
+    fun createWitValidDTO() {
+        val companyDTO1 = CompanyDTO(1L, "COMPANY_1")
+        val vacancyDTO = VacancyDtoForCreate(
+            "NAME_VACANCY_2_COMPANY_1",
+            "COMMENT_VACANCY_2_COMPANY_1",
+            companyDTO1.n
+        )
+        val answer = given().contentType(io.restassured.http.ContentType.JSON)
+            .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH)
+        answer.Extract { this.statusCode() == 200 } // assert variant 1
+        assertEquals(200,  answer.statusCode) // assert variant 2
+    }
+
     //TODO: test create with NOT valid DTO
+    //TODO: test validate message on create
     //TODO: test update
     //TODO: test delete exist
     //TODO: test delete NOT exist
     //TODO: test delete with check cache
-    //TODO: test validate message on create
 }
