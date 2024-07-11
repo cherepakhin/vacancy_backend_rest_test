@@ -114,4 +114,9 @@ class VacancyRestTest {
                 companyDTO3),
             vacancies[3])
     }
+
+    //TODO: test create
+    //TODO: test update
+    //TODO: test delete
+
 }

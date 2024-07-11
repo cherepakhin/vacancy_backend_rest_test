@@ -86,4 +86,7 @@ class CompanyRestTest {
         assertEquals(CompanyDTO(2L,"COMPANY_2"), companies[2])
         assertEquals(CompanyDTO(3L,"3_COMPANY"), companies[3])
     }
+    //TODO: test create
+    //TODO: test update
+    //TODO: test delete
 }
