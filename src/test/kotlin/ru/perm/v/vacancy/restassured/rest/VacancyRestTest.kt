@@ -115,7 +115,14 @@ class VacancyRestTest {
             vacancies[3])
     }
 
-    //TODO: test get NOT EXIST vacancy
+    @Test
+    @DisplayName("GET NOT EXIST Vacancy.")
+    fun getNotExistVacancy() {
+        given().`when`().get("/-100").then()
+            .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+            .contentType("application/json" )
+
+    }
     //TODO: test create with valid DTO
     //TODO: test create with NOT valid DTO
     //TODO: test update
