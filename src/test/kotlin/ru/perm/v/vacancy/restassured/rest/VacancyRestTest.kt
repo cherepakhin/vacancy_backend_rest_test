@@ -162,7 +162,7 @@ class VacancyRestTest {
     }
 
     @Test
-    @DisplayName("Create Vacancy with NOT valid DTO (name short). Check message.")
+    @DisplayName("Create Vacancy with NOT valid DTO (name short). Check status code.")
     fun createWith_NOT_ValidDTO_NAME_SHORT_check_status_code() {
         val companyDTO1 = CompanyDTO(1L, "COMPANY_1")
         val vacancyDTO = VacancyDtoForCreate(
