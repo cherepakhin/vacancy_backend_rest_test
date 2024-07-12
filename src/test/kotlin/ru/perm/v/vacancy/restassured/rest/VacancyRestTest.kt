@@ -156,9 +156,9 @@ class VacancyRestTest {
             "COMMENT_VACANCY_2_COMPANY_1",
             companyDTO1.n
         )
-        val answer = given().contentType(io.restassured.http.ContentType.JSON)
+        val errorMessage = given().contentType(io.restassured.http.ContentType.JSON)
             .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH).andReturn().then().extract().path<String>("message")
-        assertEquals("VacancyDto(name='1234', comment='COMMENT_VACANCY_2_COMPANY_1', company_n=1) has errors: размер должен находиться в диапазоне от 5 до 50\n",  answer)
+        assertEquals("VacancyDto(name='1234', comment='COMMENT_VACANCY_2_COMPANY_1', company_n=1) has errors: размер должен находиться в диапазоне от 5 до 50\n",  errorMessage)
     }
 
     @Test
@@ -174,9 +174,35 @@ class VacancyRestTest {
             .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH).andReturn()
         assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR,  answer.statusCode)
     }
+    @Test
+    @DisplayName("Create Vacancy with NOT exist company. Check status code.")
+    fun createWithNotExistCompanyCheckStatusCode() {
+        val ID_NOT_EXIST_COMPANY = -100L
+        val vacancyDTO = VacancyDtoForCreate(
+            "NAME_VACANCY",
+            "COMMENT",
+            ID_NOT_EXIST_COMPANY
+        )
+        val answer = given().contentType(io.restassured.http.ContentType.JSON)
+            .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH).andReturn()
+        assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR,  answer.statusCode)
+    }
 
-    //TODO: test create with NOT valid DTO
-    //TODO: test validate message on create
+    @Test
+    @DisplayName("Create Vacancy with NOT exist company. Check error message.")
+    fun createWithNotExistCompanyCheckMessage() {
+        val ID_NOT_EXIST_COMPANY = -100L
+        val vacancyDTO = VacancyDtoForCreate(
+            "NAME_VACANCY",
+            "COMMENT",
+            ID_NOT_EXIST_COMPANY
+        )
+        val errorMessage = given().contentType(io.restassured.http.ContentType.JSON)
+            .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH).andReturn().then().extract().path<String>("message")
+
+        assertEquals("Company with N=-100 not found",  errorMessage)
+    }
+
     //TODO: test update
     //TODO: test delete exist
     //TODO: test delete NOT exist
