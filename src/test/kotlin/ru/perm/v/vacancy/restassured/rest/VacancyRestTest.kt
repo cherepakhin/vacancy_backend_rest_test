@@ -133,10 +133,9 @@ class VacancyRestTest {
         answer.Extract { this.statusCode() == 500 }
     }
 
-    //TODO: test create with valid DTO
     @Test
     @DisplayName("Create Vacancy with VALID DTO.")
-    fun createWitValidDTO() {
+    fun createWithValidDTO() {
         val companyDTO1 = CompanyDTO(1L, "COMPANY_1")
         val vacancyDTO = VacancyDtoForCreate(
             "NAME_VACANCY_2_COMPANY_1",
@@ -147,6 +146,33 @@ class VacancyRestTest {
             .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH)
         answer.Extract { this.statusCode() == 200 } // assert variant 1
         assertEquals(200,  answer.statusCode) // assert variant 2
+    }
+    @Test
+    @DisplayName("Create Vacancy with NOT valid DTO (name short). Check message.")
+    fun createWith_NOT_ValidDTO_NAME_SHORT_check_error_message() {
+        val companyDTO1 = CompanyDTO(1L, "COMPANY_1")
+        val vacancyDTO = VacancyDtoForCreate(
+            "1234", // width  >=5
+            "COMMENT_VACANCY_2_COMPANY_1",
+            companyDTO1.n
+        )
+        val answer = given().contentType(io.restassured.http.ContentType.JSON)
+            .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH).andReturn().then().extract().path<String>("message")
+        assertEquals("VacancyDto(name='1234', comment='COMMENT_VACANCY_2_COMPANY_1', company_n=1) has errors: размер должен находиться в диапазоне от 5 до 50\n",  answer)
+    }
+
+    @Test
+    @DisplayName("Create Vacancy with NOT valid DTO (name short). Check message.")
+    fun createWith_NOT_ValidDTO_NAME_SHORT_check_status_code() {
+        val companyDTO1 = CompanyDTO(1L, "COMPANY_1")
+        val vacancyDTO = VacancyDtoForCreate(
+            "1234", // width  < 5 chars
+            "COMMENT_VACANCY_2_COMPANY_1",
+            companyDTO1.n
+        )
+        val answer = given().contentType(io.restassured.http.ContentType.JSON)
+            .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH).andReturn()
+        assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR,  answer.statusCode)
     }
 
     //TODO: test create with NOT valid DTO
