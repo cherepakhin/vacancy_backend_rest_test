@@ -93,6 +93,7 @@ dependencies {
         exclude("org.mockito", "mockito-core")
     }
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-test")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.0-M1")
