@@ -11,12 +11,10 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.slf4j.LoggerFactory
 
 
 @DisplayName("Vacancy tests")
 class VacancyRestTest {
-    private val logger = LoggerFactory.getLogger(this.javaClass.name)
 
     companion object {
         @BeforeAll
@@ -39,6 +37,8 @@ class VacancyRestTest {
     @Epic("Vacancy REST API Echo")
     @DisplayName("GET Vacancy REST Request check message")
     fun getEchoCheckMessage() {
+        baseURI = CONSTS.VACANCY_PATH
+
         val MESSAGE = "message"
         given().`when`().get("/echo/" + MESSAGE).then()
             .statusCode(HttpStatus.SC_OK)
@@ -59,6 +59,8 @@ class VacancyRestTest {
     @Epic("Vacancy REST API Get Vacancy 1")
     @DisplayName("GET Vacancy N=1. Check JSON.")
     fun getVacancyByN() {
+        baseURI = CONSTS.VACANCY_PATH
+
         val N = 1
         given().`when`().get("/" + N).then()
             .contentType("application/json")
@@ -78,6 +80,7 @@ class VacancyRestTest {
     @Test
     @DisplayName("GET All Vacancy. Check body.")
     fun getAllVacancy_checkBody() {
+        baseURI = CONSTS.VACANCY_PATH
         val json = get("/").body.asString()
         val vacancies: List<VacancyDTO> = ObjectMapper().readValue(json)
 
@@ -145,8 +148,9 @@ class VacancyRestTest {
         val answer = given().contentType(io.restassured.http.ContentType.JSON)
             .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH)
         answer.Extract { this.statusCode() == 200 } // assert variant 1
-        assertEquals(200,  answer.statusCode) // assert variant 2
+        assertEquals(200, answer.statusCode) // assert variant 2
     }
+
     @Test
     @DisplayName("Create Vacancy with NOT valid DTO (name short). Check message.")
     fun createWith_NOT_ValidDTO_NAME_SHORT_check_error_message() {
@@ -158,7 +162,10 @@ class VacancyRestTest {
         )
         val errorMessage = given().contentType(io.restassured.http.ContentType.JSON)
             .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH).andReturn().then().extract().path<String>("message")
-        assertEquals("VacancyDto(name='1234', comment='COMMENT_VACANCY_2_COMPANY_1', company_n=1) has errors: размер должен находиться в диапазоне от 5 до 50\n",  errorMessage)
+        assertEquals(
+            "VacancyDto(name='1234', comment='COMMENT_VACANCY_2_COMPANY_1', company_n=1) has errors: размер должен находиться в диапазоне от 5 до 50\n",
+            errorMessage
+        )
     }
 
     @Test
@@ -172,11 +179,14 @@ class VacancyRestTest {
         )
         val answer = given().contentType(io.restassured.http.ContentType.JSON)
             .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH).andReturn()
-        assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR,  answer.statusCode)
+        assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR, answer.statusCode)
     }
+
     @Test
     @DisplayName("Create Vacancy with NOT exist company. Check status code.")
     fun createWithNotExistCompanyCheckStatusCode() {
+        baseURI = CONSTS.VACANCY_PATH
+
         val ID_NOT_EXIST_COMPANY = -100L
         val vacancyDTO = VacancyDtoForCreate(
             "NAME_VACANCY",
@@ -185,7 +195,7 @@ class VacancyRestTest {
         )
         val answer = given().contentType(io.restassured.http.ContentType.JSON)
             .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH).andReturn()
-        assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR,  answer.statusCode)
+        assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR, answer.statusCode)
     }
 
     @Test
@@ -200,11 +210,15 @@ class VacancyRestTest {
         val errorMessage = given().contentType(io.restassured.http.ContentType.JSON)
             .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH).andReturn().then().extract().path<String>("message")
 
-        assertEquals("Company with N=-100 not found",  errorMessage)
+        assertEquals("Company with N=-100 not found", errorMessage)
     }
 
-    //TODO: test update
+    //TODO: test update exist vacancy and NOT exist company
+    //TODO: test update Not exist vacancy
+    //TODO: test update with exist vacancy and company
+
     //TODO: test delete exist
-    //TODO: test delete NOT exist
+    //TODO: test delete NOT exist vacancy
+
     //TODO: test delete with check cache
 }
