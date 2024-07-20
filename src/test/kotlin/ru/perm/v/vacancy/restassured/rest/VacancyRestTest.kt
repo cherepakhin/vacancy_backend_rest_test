@@ -31,6 +31,7 @@ class VacancyRestTest {
 
     @BeforeEach
     fun setup() {
+        // Reimport DB for set basic state
         baseURI = CONSTS.HOST+"/init/reimport_db"
         given().`when`().get().then()
             .statusCode(HttpStatus.SC_OK)
