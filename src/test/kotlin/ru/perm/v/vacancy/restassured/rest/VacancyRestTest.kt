@@ -9,19 +9,32 @@ import org.apache.http.HttpStatus
 import org.hamcrest.core.IsEqual.equalTo
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.slf4j.LoggerFactory
 
 
 @DisplayName("Vacancy tests")
 class VacancyRestTest {
 
+    private val logger = LoggerFactory.getLogger(this.javaClass.name)
+
     companion object {
         @BeforeAll
         @JvmStatic
         fun setupAll(): Unit {
-            baseURI = CONSTS.VACANCY_PATH
+
         }
+
+    }
+
+    @BeforeEach
+    fun setup() {
+        baseURI = CONSTS.HOST+"/init/reimport_db"
+        given().`when`().get().then()
+            .statusCode(HttpStatus.SC_OK)
+        baseURI = CONSTS.VACANCY_PATH
     }
 
     @Test
@@ -87,6 +100,11 @@ class VacancyRestTest {
         val json = get("/").body.asString()
 
         val vacancies: List<VacancyDTO> = ObjectMapper().readValue(json)
+
+        logger.info("All Vacancy:")
+        for (v in vacancies) {
+            logger.info(v.toString())
+        }
 
         assertEquals(4, vacancies.size)
 

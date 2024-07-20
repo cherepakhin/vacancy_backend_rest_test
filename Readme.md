@@ -81,6 +81,8 @@ class EchoRestTest {
 }
 ````
 
+В тесте VacancyRestTest.kt показан пример решения проблемы описанной в [https://v.perm.ru/main/index.php/34-behave-testirovanie](https://v.perm.ru/main/index.php/34-behave-testirovanie), а именно установка начального состояния системы для теста. Сделано с помощью аннотаций @BeforeAll и @BeforeEach.
+
 ### Результаты behave тестирования
 
 ![Результаты behave тестирования](doc/allure_ok2.png)
