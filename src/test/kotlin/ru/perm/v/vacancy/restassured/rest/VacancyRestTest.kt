@@ -40,6 +40,7 @@ class VacancyRestTest {
         baseURI = CONSTS.VACANCY_PATH
 
         val MESSAGE = "message"
+
         given().`when`().get("/echo/" + MESSAGE).then()
             .statusCode(HttpStatus.SC_OK)
             .contentType("text/plain")
@@ -51,6 +52,7 @@ class VacancyRestTest {
     @DisplayName("GET Vacancy N=1. Check HttpStatus.SC_OK.")
     fun getVacancyByN_HttpStatusIsOK() {
         val N = 1
+
         given().`when`().get("/" + N).then()
             .statusCode(HttpStatus.SC_OK)
     }
@@ -60,8 +62,8 @@ class VacancyRestTest {
     @DisplayName("GET Vacancy N=1. Check JSON.")
     fun getVacancyByN() {
         baseURI = CONSTS.VACANCY_PATH
-
         val N = 1
+
         given().`when`().get("/" + N).then()
             .contentType("application/json")
             .body("n", equalTo(N))
@@ -81,14 +83,17 @@ class VacancyRestTest {
     @DisplayName("GET All Vacancy. Check body.")
     fun getAllVacancy_checkBody() {
         baseURI = CONSTS.VACANCY_PATH
+
         val json = get("/").body.asString()
+
         val vacancies: List<VacancyDTO> = ObjectMapper().readValue(json)
+
+        assertEquals(4, vacancies.size)
 
         val companyDTO1 = CompanyDTO(1L, "COMPANY_1")
         val companyDTO2 = CompanyDTO(2L, "COMPANY_2")
         val companyDTO3 = CompanyDTO(3L, "3_COMPANY")
 
-        assertEquals(4, vacancies.size)
         assertEquals(
             VacancyDTO(
                 1L,
@@ -133,6 +138,7 @@ class VacancyRestTest {
         val answer = given().`when`().get("/-100").then()
             .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
             .contentType("application/json")
+
         answer.Extract { this.statusCode() == 500 }
     }
 
@@ -141,12 +147,13 @@ class VacancyRestTest {
     fun createWithValidDTO() {
         val companyDTO1 = CompanyDTO(1L, "COMPANY_1")
         val vacancyDTO = VacancyDtoForCreate(
-            "NAME_VACANCY_2_COMPANY_1",
-            "COMMENT_VACANCY_2_COMPANY_1",
+            "TEST_NAME_VACANCY_2_COMPANY_1",
+            "TEST_COMMENT_VACANCY_2_COMPANY_1",
             companyDTO1.n
         )
         val answer = given().contentType(io.restassured.http.ContentType.JSON)
             .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH)
+
         answer.Extract { this.statusCode() == 200 } // assert variant 1
         assertEquals(200, answer.statusCode) // assert variant 2
     }
@@ -162,6 +169,7 @@ class VacancyRestTest {
         )
         val errorMessage = given().contentType(io.restassured.http.ContentType.JSON)
             .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH).andReturn().then().extract().path<String>("message")
+
         assertEquals(
             "VacancyDto(name='1234', comment='COMMENT_VACANCY_2_COMPANY_1', company_n=1) has errors: размер должен находиться в диапазоне от 5 до 50\n",
             errorMessage
@@ -177,8 +185,10 @@ class VacancyRestTest {
             "COMMENT_VACANCY_2_COMPANY_1",
             companyDTO1.n
         )
+
         val answer = given().contentType(io.restassured.http.ContentType.JSON)
             .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH).andReturn()
+
         assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR, answer.statusCode)
     }
 
@@ -195,6 +205,7 @@ class VacancyRestTest {
         )
         val answer = given().contentType(io.restassured.http.ContentType.JSON)
             .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH).andReturn()
+
         assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR, answer.statusCode)
     }
 
@@ -209,6 +220,7 @@ class VacancyRestTest {
         )
         val errorMessage = given().contentType(io.restassured.http.ContentType.JSON)
             .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH).andReturn().then().extract().path<String>("message")
+
 
         assertEquals("Company with N=-100 not found", errorMessage)
     }
