@@ -162,6 +162,25 @@ class CompanyRestTest {
         assertEquals(500, answer.statusCode())
     }
 
-    //TODO: test delete with NOT exist company
-    //TODO: test delete with exist company
+    @Test
+    @DisplayName("Delete EXIST Company.")
+    fun deleteExistCompany() {
+        val N = 100L
+        // verify NOT EXIST company
+        given().`when`().get("/" + N).then()
+            .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+
+        // before test create company for delete
+        val newCompany = CompanyDTO(N, N.toString() + "_NEW_COMPANY")
+        val createdForDeleteCompany = given().body(newCompany).contentType("application/json").`when`().post("/").body.asString()
+
+        logger.info("------------------------------------createdForDeleteCompany: "+createdForDeleteCompany)
+        val c = ObjectMapper().readValue(createdForDeleteCompany, CompanyDTO::class.java)
+        logger.info(c.toString())
+        //test
+        val answer = given().`when`().delete("/" + c.n)
+        logger.info("BODY TEST:" + answer.body.asString())
+        // check what deleted adn get status error
+        assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR, given().`when`().get("/" + N).statusCode())
+    }
 }
