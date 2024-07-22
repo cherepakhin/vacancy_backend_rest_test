@@ -100,15 +100,38 @@ class CompanyRestTest {
         val newCompany = CompanyDTO(N, "NEW_COMPANY")
         given().body(newCompany).contentType("application/json").`when`().post("/").then().statusCode(200)
 
-        //get created company
+        //check created company
         given().`when`().get("/" + N).then()
             .statusCode(HttpStatus.SC_OK)
 
-        //after test
+        //clean after test
         delete("/" + N)
     }
 
-    //TODO: test update with exist company
+    @Test
+    @DisplayName("Update EXIST Company.")
+    fun updateExistCompany() {
+        val N = 1L
+        // check exist company before test
+        given().`when`().get("/" + N).then()
+            .statusCode(HttpStatus.SC_OK)
+
+        //test
+        val changedCompany = CompanyDTO(N, "CHANGED_NAME_COMPANY")
+        val answer = given().body(changedCompany).contentType("application/json").`when`().post("/" + N)
+
+        assertEquals(200, answer.statusCode())
+        //verify changed company
+        given().`when`().get("/" + N).then()
+            .contentType("application/json")
+            .body("n", equalTo(N.toInt()))
+            .body("name", equalTo("CHANGED_NAME_COMPANY"))
+
+        //reset after test
+        val resetCompany = CompanyDTO(N, "COMPANY_1")
+        given().body(resetCompany).contentType("application/json").`when`().post("/" + N)
+    }
+
     //TODO: test update with NOT exist company
     //TODO: test delete with exist company
     //TODO: test delete with NOT exist company
