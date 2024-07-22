@@ -132,7 +132,21 @@ class CompanyRestTest {
         given().body(resetCompany).contentType("application/json").`when`().post("/" + N)
     }
 
-    //TODO: test update with NOT exist company
+    @Test
+    @DisplayName("Update NOT EXIST Company.")
+    fun updateNotExistCompany() {
+        val N = 100L
+        // verify not exist company
+        given().`when`().get("/" + N).then()
+            .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+
+        //test
+        val changedCompany = CompanyDTO(N, "CHANGED_NAME_COMPANY")
+        val answer = given().body(changedCompany).contentType("application/json").`when`().post("/" + N)
+
+        assertEquals(500, answer.statusCode())
+    }
+
     //TODO: test delete with exist company
     //TODO: test delete with NOT exist company
 }
