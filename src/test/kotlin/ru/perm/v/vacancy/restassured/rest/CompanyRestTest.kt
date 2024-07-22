@@ -147,6 +147,21 @@ class CompanyRestTest {
         assertEquals(500, answer.statusCode())
     }
 
-    //TODO: test delete with exist company
+    @Test
+    @DisplayName("Delete NOT EXIST Company.")
+    fun deleteNotExistCompany() {
+        val N = 100L
+        // verify NOT exist company
+        given().`when`().get("/" + N).then()
+            .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+
+        //test
+        val changedCompany = CompanyDTO(N, "CHANGED_NAME_COMPANY")
+        val answer = given().body(changedCompany).contentType("application/json").`when`().delete("/" + N)
+
+        assertEquals(500, answer.statusCode())
+    }
+
     //TODO: test delete with NOT exist company
+    //TODO: test delete with exist company
 }
