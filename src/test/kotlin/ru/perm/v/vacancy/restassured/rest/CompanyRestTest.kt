@@ -3,7 +3,6 @@ package ru.perm.v.vacancy.restassured.rest
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.qameta.allure.Epic
-import io.restassured.RestAssured
 import io.restassured.RestAssured.*
 import org.apache.http.HttpStatus
 import org.hamcrest.core.IsEqual.equalTo
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
-import org.springframework.boot.web.client.RestTemplateBuilder
 
 
 @DisplayName("Company tests")
@@ -172,15 +170,16 @@ class CompanyRestTest {
 
         // before test create company for delete
         val newCompany = CompanyDTO(N, N.toString() + "_NEW_COMPANY")
-        val createdForDeleteCompany = given().body(newCompany).contentType("application/json").`when`().post("/").body.asString()
+        val createdForDeleteCompany =
+            given().body(newCompany).contentType("application/json").`when`().post("/").body.asString()
 
-        logger.info("------------------------------------createdForDeleteCompany: "+createdForDeleteCompany)
+        logger.info("------------------------------------createdForDeleteCompany: " + createdForDeleteCompany)
         val c = ObjectMapper().readValue(createdForDeleteCompany, CompanyDTO::class.java)
         logger.info(c.toString())
         //test
         val answer = given().`when`().delete("/" + c.n)
         logger.info("BODY TEST:" + answer.body.asString())
-        // check what deleted adn get status error
+        // check what deleted and GET by id is status error
         assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR, given().`when`().get("/" + N).statusCode())
     }
 }
