@@ -164,7 +164,7 @@ class CompanyRestTest {
     @DisplayName("Delete EXIST Company.")
     fun deleteExistCompany() {
         val N = 100L
-        // verify NOT EXIST company
+        // verify NOT EXIST company. Company will be created next
         given().`when`().get("/" + N).then()
             .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
 
@@ -176,9 +176,11 @@ class CompanyRestTest {
         logger.info("------------------------------------createdForDeleteCompany: " + createdForDeleteCompany)
         val c = ObjectMapper().readValue(createdForDeleteCompany, CompanyDTO::class.java)
         logger.info(c.toString())
+
         //test
         val answer = given().`when`().delete("/" + c.n)
         logger.info("BODY TEST:" + answer.body.asString())
+
         // check what deleted and GET by id is status error
         assertEquals(HttpStatus.SC_INTERNAL_SERVER_ERROR, given().`when`().get("/" + N).statusCode())
     }
