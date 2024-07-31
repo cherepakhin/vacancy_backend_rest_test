@@ -32,7 +32,7 @@ class VacancyRestTest {
     @BeforeEach
     fun setup() {
         // Reimport DB for set basic state
-        baseURI = CONSTS.HOST+"/init/reimport_db"
+        baseURI = CONSTS.HOST + "/init/reimport_db"
         given().`when`().get().then()
             .statusCode(HttpStatus.SC_OK)
         baseURI = CONSTS.VACANCY_PATH
@@ -229,7 +229,7 @@ class VacancyRestTest {
     }
 
     @Test
-    @DisplayName("Create Vacancy with NOT exist company. Check error message.")
+    @DisplayName("Create Vacancy with NOT exist company. Check status code.")
     fun createWithNotExistCompanyCheckMessage() {
         val ID_NOT_EXIST_COMPANY = -100L
         val vacancyDTO = VacancyDtoForCreate(
@@ -244,8 +244,42 @@ class VacancyRestTest {
         assertEquals("Company with N=-100 not found", errorMessage)
     }
 
-    //TODO: test update exist vacancy and NOT exist company
+    @Test
+    @DisplayName("Update Vacancy with NOT exist company. Check error message.")
+    fun updateWithNotExistCompanyCheckMessage() {
+        val ID_NOT_EXIST_COMPANY = -100L
+        val vacancyDTO = VacancyDtoForCreate(
+            "NAME_VACANCY",
+            "COMMENT",
+            ID_NOT_EXIST_COMPANY
+        )
+        val errorMessage = given().contentType(io.restassured.http.ContentType.JSON)
+            .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH).andReturn().then().extract().path<String>("message")
+
+
+        assertEquals("Company with N=-100 not found", errorMessage)
+    }
+
     //TODO: test update Not exist vacancy
+    @Test
+    @DisplayName("Update NOT exist vacancy. Check error message.")
+    fun updateNotExistVacancyCheckMessage() {
+        val ID_NOT_EXIST_VACANCY = -100L
+        val vacancyDTO = VacancyDTO(
+            ID_NOT_EXIST_VACANCY,
+            "NAME_VACANCY",
+            "COMMENT",
+            CompanyDTO(1L, "") // any EXIST!!! company
+        )
+
+        val errorMessage = given().contentType(io.restassured.http.ContentType.JSON)
+            .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH + ID_NOT_EXIST_VACANCY).andReturn().then().extract()
+            .path<String>("message")
+
+
+        assertEquals("Vacancy with N=-100 not found", errorMessage)
+    }
+
     //TODO: test update with exist vacancy and company
 
     //TODO: test delete exist
