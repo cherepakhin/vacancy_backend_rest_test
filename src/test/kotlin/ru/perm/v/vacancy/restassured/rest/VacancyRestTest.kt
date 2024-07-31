@@ -280,6 +280,20 @@ class VacancyRestTest {
         assertEquals("Vacancy with N=-100 not found", errorMessage)
     }
 
+    @Test
+    @DisplayName("Delete NOT exist vacancy. Check error message.")
+    fun deleteNotExistVacancyCheckMessage() {
+        val ID_NOT_EXIST_VACANCY = 100L
+
+        val errorMessage = given().contentType(io.restassured.http.ContentType.JSON)
+            .`when`().delete(CONSTS.VACANCY_PATH + ID_NOT_EXIST_VACANCY).andReturn().then().extract()
+            .path<String>("message")
+
+
+        assertEquals("Vacancy with N=100 not found", errorMessage)
+    }
+
+
     //TODO: test update with exist vacancy and company
 
     //TODO: test delete exist
