@@ -297,7 +297,6 @@ class VacancyRestTest {
     //TODO: test update with exist vacancy and company
 
     //TODO: test delete exist
-    //TODO: test delete NOT exist vacancy
 
     //TODO: test delete with check cache
 }
