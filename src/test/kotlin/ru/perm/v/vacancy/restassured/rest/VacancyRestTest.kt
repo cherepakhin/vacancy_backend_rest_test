@@ -293,6 +293,12 @@ class VacancyRestTest {
         assertEquals("Vacancy with N=100 not found", errorMessage)
     }
 
+    @Test
+    @DisplayName("Delete exist vacancy.")
+    fun deleteExistVacancy() {
+        val ID_EXIST_VACANCY = 4L
+        given().`when`().delete("/" + ID_EXIST_VACANCY).then().statusCode(HttpStatus.SC_OK)
+    }
 
     //TODO: test update with exist vacancy and company
 
