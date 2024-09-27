@@ -174,11 +174,12 @@ class CompanyRestTest {
             given().body(newCompany).contentType("application/json").`when`().post("/").body.asString()
 
         logger.info("------------------------------------createdForDeleteCompany: " + createdForDeleteCompany)
-        val c = ObjectMapper().readValue(createdForDeleteCompany, CompanyDTO::class.java)
-        logger.info(c.toString())
+
+        val companyDTO = ObjectMapper().readValue<CompanyDTO>(createdForDeleteCompany)
+        logger.info(companyDTO.toString())
 
         //test
-        val answer = given().`when`().delete("/" + c.n)
+        val answer = given().`when`().delete("/" + companyDTO.n)
         logger.info("BODY TEST:" + answer.body.asString())
 
         // check what deleted and GET by id is status error
