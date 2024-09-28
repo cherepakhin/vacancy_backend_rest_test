@@ -307,7 +307,35 @@ class VacancyRestTest {
         answer.Extract { this.statusCode() == 500 }
     }
 
-    //TODO: test update with exist vacancy and company
+    @Test
+    @DisplayName("Update EXIST Vacancy with EXIST company. Check message.")
+    fun updateVacancy() {
+        val VACANCY_ID = 4L // vacancy with id=4 EXIST, see import.sql in vacancy project
+        val NEW_COMPANY_ID = 1L
+        val NEW_COMPANY_DTO = CompanyDTO()
+        NEW_COMPANY_DTO.n = NEW_COMPANY_ID
+        val vacancyDTO = VacancyDTO(
+            VACANCY_ID,
+            "NAME_VACANCY",
+            "COMMENT",
+            NEW_COMPANY_DTO
+        )
+        val resultMessage = given().contentType(io.restassured.http.ContentType.JSON)
+            .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH + VACANCY_ID).andReturn()
+
+        logger.info(resultMessage.body.asString())
+        assertEquals("{\"n\":4,\"name\":\"NAME_VACANCY\",\"comment\":\"COMMENT\",\"company\":{\"n\":1,\"name\":\"COMPANY_1\"}}", resultMessage.body.asString())
+        val json = resultMessage.body.asString()
+        val receivedVacancyDTO = ObjectMapper().readValue(json, VacancyDTO::class.java)
+        val expectedVacancyDTO = VacancyDTO(
+            VACANCY_ID,
+            "NAME_VACANCY",
+            "COMMENT",
+            CompanyDTO(1, "COMPANY_1")
+        )
+
+        assertEquals(expectedVacancyDTO, receivedVacancyDTO)
+    }
 
     //TODO: test delete with check cache
 }
