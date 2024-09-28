@@ -298,11 +298,16 @@ class VacancyRestTest {
     fun deleteExistVacancy() {
         val ID_EXIST_VACANCY = 4L
         given().`when`().delete("/" + ID_EXIST_VACANCY).then().statusCode(HttpStatus.SC_OK)
+
+        // verify vacancy deleted?
+        val answer = given().`when`().get("/" + ID_EXIST_VACANCY).then()
+            .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+            .contentType("application/json")
+
+        answer.Extract { this.statusCode() == 500 }
     }
 
     //TODO: test update with exist vacancy and company
-
-    //TODO: test delete exist
 
     //TODO: test delete with check cache
 }
