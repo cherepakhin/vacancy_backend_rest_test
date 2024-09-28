@@ -308,8 +308,8 @@ class VacancyRestTest {
     }
 
     @Test
-    @DisplayName("Update EXIST Vacancy with EXIST company. Check message.")
-    fun updateVacancy() {
+    @DisplayName("Update EXIST Vacancy with EXIST company. Verify result as string.")
+    fun updateVacancy_withVerifyResultAsString() {
         val VACANCY_ID = 4L // vacancy with id=4 EXIST, see import.sql in vacancy project
         val NEW_COMPANY_ID = 1L
         val NEW_COMPANY_DTO = CompanyDTO()
@@ -325,6 +325,26 @@ class VacancyRestTest {
 
         logger.info(resultMessage.body.asString())
         assertEquals("{\"n\":4,\"name\":\"NAME_VACANCY\",\"comment\":\"COMMENT\",\"company\":{\"n\":1,\"name\":\"COMPANY_1\"}}", resultMessage.body.asString())
+    }
+
+    @Test
+    @DisplayName("Update EXIST Vacancy with EXIST company. Verify result as object.")
+    fun updateVacancy_withVerifyResultAsObject() {
+        val VACANCY_ID = 4L // vacancy with id=4 EXIST, see import.sql in vacancy project
+        val NEW_COMPANY_ID = 1L
+        val NEW_COMPANY_DTO = CompanyDTO()
+        NEW_COMPANY_DTO.n = NEW_COMPANY_ID
+        val vacancyDTO = VacancyDTO(
+            VACANCY_ID,
+            "NAME_VACANCY",
+            "COMMENT",
+            NEW_COMPANY_DTO
+        )
+        val resultMessage = given().contentType(io.restassured.http.ContentType.JSON)
+            .body(vacancyDTO).`when`().post(CONSTS.VACANCY_PATH + VACANCY_ID).andReturn()
+
+        logger.info(resultMessage.body.asString())
+
         val json = resultMessage.body.asString()
         val receivedVacancyDTO = ObjectMapper().readValue(json, VacancyDTO::class.java)
         val expectedVacancyDTO = VacancyDTO(
