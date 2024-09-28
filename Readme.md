@@ -11,11 +11,20 @@
 Перед запуском тестов нужно запустить сам проект:
 [https://github.com/cherepakhin/vacancy_backend](https://github.com/cherepakhin/vacancy_backend)
 
-### Проведение теста
+### Проведение тестов
+
+Прогон всех тестов:
+```shell
+vacancy_backend-restassured-test$ ./gradlew cleanTest test
+```
+
+Отбор и проведение тестов по маске:
 
 ```shell
-vacancy_backend-restassured-test$ ./gradlew clean test
+vacancy_backend-restassured-test$ ./gradlew cleanTest test --tests '*deleteAndCheckDeletedInCache*'
 ```
+
+__cleanTest__ - обязательный флаг. Означает "забывать" результаты прошлых тестов, если алгоритм самого теста не изменился, т.к. тестируимый сервис может меняться, а тестировщик может об этом не знать.  
 
 Просмотр отчета в браузере:
 

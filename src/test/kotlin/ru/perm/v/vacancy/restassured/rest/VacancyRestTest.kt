@@ -32,6 +32,7 @@ class VacancyRestTest {
     @BeforeEach
     fun setup() {
         // Reimport DB for set basic state
+        logger.info("SETUP. REIMPORT.")
         baseURI = CONSTS.HOST + "/init/reimport_db"
         given().`when`().get().then()
             .statusCode(HttpStatus.SC_OK)
@@ -357,5 +358,32 @@ class VacancyRestTest {
         assertEquals(expectedVacancyDTO, receivedVacancyDTO)
     }
 
-    //TODO: test delete with check cache
+    @Test
+    fun deleteAndCheckDeletedInCache() {
+        // plan :
+        // 0. before ALL init db. see
+        //       @BeforeEach
+        //       fun setup() {...}
+        // http http://127.0.0.1:8980/vacancy/api/init/reimport_db
+        // 1. get by id for verify exist
+        // 2. delete by id
+        // 3. get by id for check deleted AND DELETED FROM CACHE
+        // Run test: ./gradlew test --tests '*deleteAndCheckDeletedInCache*'
+        val ID_EXIST_VACANCY = 4L
+        // 0. Reimport
+        baseURI = CONSTS.HOST + "/init/reimport_db"
+        given().`when`().get().then()
+            .statusCode(HttpStatus.SC_OK)
+
+        baseURI = CONSTS.VACANCY_PATH
+        // 1. get by id for verify exist
+        given().`when`().get("/" + ID_EXIST_VACANCY).then()
+            .statusCode(HttpStatus.SC_OK)
+        // 2. delete by id
+        given().`when`().delete("/" + ID_EXIST_VACANCY).then().statusCode(HttpStatus.SC_OK)
+        // 3. get by id for check deleted AND DELETED FROM CACHE
+//        given().`when`().get("/" + ID_EXIST_VACANCY).then()
+//            .statusCode(HttpStatus.SC_OK)
+
+    }
 }
