@@ -117,8 +117,11 @@ $ allure serve build/allure-results/
     }
 
 ```
+Отчет Allure:
 
-Результат:
+![Allure result](doc/allure_ok.png)
+
+Результат в Idea:
 
 ![Idea DisplayName](doc/idea_result.png)
 
