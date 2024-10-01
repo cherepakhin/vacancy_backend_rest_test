@@ -359,6 +359,7 @@ class VacancyRestTest {
     }
 
     @Test
+    @DisplayName("Delete EXIST vacancy by ID=4")
     fun deleteAndCheckDeletedInCache() {
         // plan :
         // 0. before ALL init db. see

@@ -13,9 +13,14 @@
 
 ### Проведение тестов
 
-Прогон всех тестов:
+Прогон всех тестов (./run_tests.sh):
 ```shell
 vacancy_backend-restassured-test$ ./gradlew cleanTest test
+```
+
+Прогон всех тестов в режиме offline, без интернета (./run_tests_offline.sh):
+```shell
+vacancy_backend-restassured-test$ ./gradlew cleanTest --offline test
 ```
 
 Отбор и проведение тестов по маске:
