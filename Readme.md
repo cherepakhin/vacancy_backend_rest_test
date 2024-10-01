@@ -97,9 +97,13 @@ class EchoRestTest {
 
 В тесте VacancyRestTest.kt показан пример решения проблемы описанной в [https://v.perm.ru/main/index.php/34-behave-testirovanie(Вопросы...)](https://v.perm.ru/main/index.php/34-behave-testirovanie), а именно установка начального состояния системы для теста. Сделано с помощью аннотаций @BeforeAll и @BeforeEach.
 
-### Результаты behave тестирования
+### Результаты behave тестирования в Allure Report 
 
-![Результаты behave тестирования](doc/allure_ok2.png)
+Для отчетов использован Allure Report. Скрипт для просмотра отчетов ./show_allure_report.sh : 
+
+````shell
+$ allure serve build/allure-results/
+````
 
 В Idea названия тестов будут названы из аннотации  @DisplayName. Пример:
 
