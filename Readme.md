@@ -174,9 +174,19 @@ vacancy_backend-restassured-test$ allure serve allure-results/
 
 Вообще, Grafana используется для мониторинга работающего приложения, здесь только для интереса. Какие-то общие сведения можно увидеть на тестах. В конфигурацию Prometheus добавить задание:
 
-Timeout(10s)
+````java
+- job_name: "vacancy_backend(1.20:8988)"
+  scrape_interval: 5s
+  metrics_path: "/vacancy/api/actuator/prometheus"
+  static_configs:
+  - targets: ["192.168.1.20:8988"]
+````
 
-![Нагрузка при проведении тестов](doc/grafana_10s.png)
+192.168.1.20:8988/vacancy/api/actuator/prometheus - url для снятия характеристик.
+
+Нагрузка при проведении тестов:
+
+![Нагрузка при проведении тестов](doc/grafana_on_test.png)
 
 ### Примечания.
 
