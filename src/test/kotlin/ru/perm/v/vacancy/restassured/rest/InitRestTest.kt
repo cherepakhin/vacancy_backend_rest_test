@@ -43,22 +43,24 @@ class InitRestTest {
             .contentType("text/plain")
             .body(equalTo(MESSAGE))
     }
+
     @Test
     @Epic("ReInitDB REST API")
     @DisplayName("ReInitDB REST API")
     fun reInitDB() {
         val MESSAGE = "Ok"
-        given().`when`().get("/reimport_db/").then()
+        given().`when`().get("/reimport_db").then()
             .statusCode(HttpStatus.SC_OK)
             .contentType("text/plain")
             .body(equalTo(MESSAGE))
     }
+
     @Test
     @Epic("EmptyDB REST API")
     @DisplayName("EmptyDB REST API")
     fun emptyDB() {
         val MESSAGE = "Ok"
-        given().`when`().get("/empty_db/").then()
+        given().`when`().get("/empty_db").then()
             .statusCode(HttpStatus.SC_OK)
             .contentType("text/plain")
             .body(equalTo(MESSAGE))

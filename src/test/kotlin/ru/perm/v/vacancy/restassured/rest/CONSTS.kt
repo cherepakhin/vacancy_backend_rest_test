@@ -7,6 +7,6 @@ class CONSTS {
         val ECHO_PATH = HOST + "/echo/"
         val COMPANY_PATH = HOST + "/company/"
         val VACANCY_PATH = HOST + "/vacancy/"
-        val INIT_PATH = HOST + "/init/"
+        val INIT_PATH = HOST + "/init"
     }
 }
