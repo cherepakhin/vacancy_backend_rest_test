@@ -3,9 +3,10 @@ package ru.perm.v.vacancy.restassured.rest
 class VacancyDtoForCreate(
     var name: String = "-",
     var comment: String = "-",
-    var company_n: Long  =  0
+    var company_n: Long  =  0,
+    var contact_n: Long = 0
 ) {
     override fun toString(): String {
-        return "VacancyDto(name='$name', comment='$comment', company_n=$company_n)"
+        return "VacancyDto(name='$name', comment='$comment', company_n=$company_n, contact_n=$contact_n)"
     }
 }

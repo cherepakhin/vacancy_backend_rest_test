@@ -78,13 +78,13 @@ class CompanyRestTest {
     @DisplayName("GET All Company. Check body.")
     fun getAllCompany_checkBody() {
         val json = get("/").body.asString()
-        val companies: List<CompanyDTO> = ObjectMapper().readValue(json)
+        val companies: List<CompanyDto> = ObjectMapper().readValue(json)
 
         assertEquals(4, companies.size)
-        assertEquals(CompanyDTO(-1L, "-"), companies[0])
-        assertEquals(CompanyDTO(1L, "COMPANY_1"), companies[1])
-        assertEquals(CompanyDTO(2L, "COMPANY_2"), companies[2])
-        assertEquals(CompanyDTO(3L, "3_COMPANY"), companies[3])
+        assertEquals(CompanyDto(-1L, "-"), companies[0])
+        assertEquals(CompanyDto(1L, "COMPANY_1"), companies[1])
+        assertEquals(CompanyDto(2L, "COMPANY_2"), companies[2])
+        assertEquals(CompanyDto(3L, "3_COMPANY"), companies[3])
     }
 
     @Test
@@ -95,7 +95,7 @@ class CompanyRestTest {
         delete("/" + N) // delete if exist
 
         //test
-        val newCompany = CompanyDTO(N, "NEW_COMPANY")
+        val newCompany = CompanyDto(N, "NEW_COMPANY")
         given().body(newCompany).contentType("application/json").`when`().post("/").then().statusCode(200)
 
         //check created company
@@ -115,7 +115,7 @@ class CompanyRestTest {
             .statusCode(HttpStatus.SC_OK)
 
         //test
-        val changedCompany = CompanyDTO(N, "CHANGED_NAME_COMPANY")
+        val changedCompany = CompanyDto(N, "CHANGED_NAME_COMPANY")
         val answer = given().body(changedCompany).contentType("application/json").`when`().post("/" + N)
 
         assertEquals(200, answer.statusCode())
@@ -126,7 +126,7 @@ class CompanyRestTest {
             .body("name", equalTo("CHANGED_NAME_COMPANY"))
 
         //reset after test
-        val resetCompany = CompanyDTO(N, "COMPANY_1")
+        val resetCompany = CompanyDto(N, "COMPANY_1")
         given().body(resetCompany).contentType("application/json").`when`().post("/" + N)
     }
 
@@ -139,7 +139,7 @@ class CompanyRestTest {
             .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
 
         //test
-        val changedCompany = CompanyDTO(N, "CHANGED_NAME_COMPANY")
+        val changedCompany = CompanyDto(N, "CHANGED_NAME_COMPANY")
         val answer = given().body(changedCompany).contentType("application/json").`when`().post("/" + N)
 
         assertEquals(500, answer.statusCode())
@@ -154,7 +154,7 @@ class CompanyRestTest {
             .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
 
         //test
-        val changedCompany = CompanyDTO(N, "CHANGED_NAME_COMPANY")
+        val changedCompany = CompanyDto(N, "CHANGED_NAME_COMPANY")
         val answer = given().body(changedCompany).contentType("application/json").`when`().delete("/" + N)
 
         assertEquals(500, answer.statusCode())
@@ -169,17 +169,17 @@ class CompanyRestTest {
             .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
 
         // before test create company for delete
-        val newCompany = CompanyDTO(N, N.toString() + "_NEW_COMPANY")
+        val newCompany = CompanyDto(N, N.toString() + "_NEW_COMPANY")
         val createdForDeleteCompany =
             given().body(newCompany).contentType("application/json").`when`().post("/").body.asString()
 
         logger.info("------------------------------------createdForDeleteCompany: " + createdForDeleteCompany)
 
-        val companyDTO = ObjectMapper().readValue<CompanyDTO>(createdForDeleteCompany)
-        logger.info(companyDTO.toString())
+        val companyDto = ObjectMapper().readValue<CompanyDto>(createdForDeleteCompany)
+        logger.info(companyDto.toString())
 
         //test
-        val answer = given().`when`().delete("/" + companyDTO.n)
+        val answer = given().`when`().delete("/" + companyDto.n)
         logger.info("BODY TEST:" + answer.body.asString())
 
         // check what deleted and GET by id is status error

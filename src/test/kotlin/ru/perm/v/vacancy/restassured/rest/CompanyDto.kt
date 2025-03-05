@@ -1,11 +1,10 @@
 package ru.perm.v.vacancy.restassured.rest
 
-class CompanyDTO {
+class CompanyDto {
     var n: Long = -1L
     var name: String = ""
 
     constructor()  {
-
     }
 
     constructor(n: Long, name: String) {
@@ -15,12 +14,12 @@ class CompanyDTO {
 
 
     override fun toString(): String {
-        return "CompanyDTO(n=$n, name='$name')"
+        return "CompanyDto(n=$n, name='$name')"
     }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is CompanyDTO) return false
+        if (other !is CompanyDto) return false
 
         if (n != other.n) return false
         if (name != other.name) return false
@@ -33,6 +32,4 @@ class CompanyDTO {
         result = 31 * result + name.hashCode()
         return result
     }
-
-
 }
