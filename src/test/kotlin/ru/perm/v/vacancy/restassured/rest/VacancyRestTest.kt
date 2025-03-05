@@ -347,7 +347,7 @@ class VacancyRestTest {
             .body(vacancyDto).`when`().post(CONSTS.VACANCY_PATH + VACANCY_ID).andReturn()
 
         logger.info(resultMessage.body.asString())
-        assertEquals("{\"n\":4,\"name\":\"NAME_VACANCY\",\"comment\":\"COMMENT\",\"company\":{\"n\":1,\"name\":\"COMPANY_1\"}}", resultMessage.body.asString())
+        assertEquals("{\"n\":4,\"name\":\"NAME_VACANCY\",\"comment\":\"COMMENT\",\"company\":{\"n\":1,\"name\":\"COMPANY_1\"},\"contact\":{\"n\":1,\"name\":\"CONTACT_1_COMPANY_1\",\"email\":\"CONTACT_1_EMAIL\",\"phone\":\"CONTACT_1_PHONE\",\"comment\":\"CONTACT_1_COMMENT\"}}", resultMessage.body.asString())
     }
 
     @Test
