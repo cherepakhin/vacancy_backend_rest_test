@@ -227,3 +227,18 @@ https://github.com/cherepakhin/vacancy_backend_rest_test.git
 #### Настройка env переменных в Idea
 
 ![Настройка env переменных в Idea](doc/idea_env_select.png)
+
+### Как узнать удаленный git репозиторий
+
+````shell
+$ git remote -v
+origin  https://github.com/cherepakhin/vacancy_backend_rest_test.git (fetch)
+origin  https://github.com/cherepakhin/vacancy_backend_rest_test.git (push)
+````
+
+или
+
+````shell
+$ git config --get remote.origin.url
+https://github.com/cherepakhin/vacancy_backend_rest_test.git
+````
