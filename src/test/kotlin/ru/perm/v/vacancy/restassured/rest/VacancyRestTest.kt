@@ -207,7 +207,7 @@ class VacancyRestTest {
             .body(vacancyDto).`when`().post(CONSTS.VACANCY_PATH).andReturn().then().extract().path<String>("message")
 
         assertEquals(
-            "VacancyDto(name='1234', comment='COMMENT_VACANCY_2_COMPANY_1', company_n=1) has errors: размер должен находиться в диапазоне от 5 до 50\n",
+            "VacancyDto(name='1234', comment='COMMENT_VACANCY_2_COMPANY_1', company_n=1, contact_n=0) has errors: размер должен находиться в диапазоне от 5 до 50",
             errorMessage
         )
     }
