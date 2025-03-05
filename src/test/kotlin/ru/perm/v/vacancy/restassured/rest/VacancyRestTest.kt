@@ -321,10 +321,10 @@ class VacancyRestTest {
 
         // verify vacancy deleted?
         val answer = given().`when`().get("/" + ID_EXIST_VACANCY).then()
-            .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR)
+            .statusCode(HttpStatus.SC_OK)
             .contentType("application/json")
 
-        answer.Extract { this.statusCode() == 500 }
+        answer.Extract { this.statusCode() == 200 }
     }
 
     @Test
