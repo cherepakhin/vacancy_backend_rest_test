@@ -277,7 +277,6 @@ class VacancyRestTest {
         assertEquals("Company with N=-100 not found", errorMessage)
     }
 
-    //TODO: test update Not exist vacancy
     @Test
     @DisplayName("Update NOT exist vacancy. Check error message.")
     fun updateNotExistVacancyCheckMessage() {
