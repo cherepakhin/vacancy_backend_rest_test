@@ -374,12 +374,13 @@ class VacancyRestTest {
 
         val json = resultMessage.body.asString()
         val receivedVacancyDto = ObjectMapper().readValue(json, VacancyDto::class.java)
+        val expectedContact = ContactDto(n=1, name="CONTACT_1_COMPANY_1", email="CONTACT_1_EMAIL", phone="CONTACT_1_PHONE", comment="CONTACT_1_COMMENT")
         val expectedVacancyDto = VacancyDto(
             VACANCY_ID,
             "NAME_VACANCY",
             "COMMENT",
             CompanyDto(1, "COMPANY_1"),
-            contactDto
+            expectedContact
         )
 
         assertEquals(expectedVacancyDto, receivedVacancyDto)
